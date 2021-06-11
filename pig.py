@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 ''' Pig - the greatest die to game ever made, published by John Scarne. '''
 
-from die import roll_die
-from player import Player, ComputerPlayer
+from player import Player, ComputerPlayer, time
 
 __author__ = 'Jacob Hajjar'
 __email__ = 'hajjarj@csu.fullerton.edu'
@@ -11,8 +10,6 @@ __maintainer__ = 'jacobhajjar'
 
 def main():
     ''' The main function for my Pig game '''
-    the_roll = roll_die()
-    # print(the_roll)
     game_menu()
 
 
@@ -22,14 +19,14 @@ def game_menu():
     print("Welcome to Jacob's Pig game!")
     while True:
         print(
-            "To play a new game, enter the number of people playing (1-4) or 'q' to quit: ")
+            "To play a new game, enter the number of people playing (1-4) or 'q' to quit: ", end = '')
         try:
             player_selection = input()
-            if player_selection == 'q' or player_selection == 'Q':
+            if player_selection in ('q', 'Q'):
                 break
             number_players = int(player_selection)
 
-            if number_players <= 4 and number_players >= 1:
+            if 1 <= number_players <= 4:
                 # game starts, main game conditions met
                 play_round(number_players)
             else:
@@ -49,8 +46,16 @@ def play_round(num_players):
 
     highest_score = 0
     while highest_score < 100:
-        for i in range(len(p_list)):
-            print("It is player {}'s turn".format(i+1))
+        for player in p_list:
+            print("It is player {}'s turn".format(p_list.index(player) + 1))
+            time.sleep(1)
+            print("Score: {}".format(player.total_score))
+            time.sleep(1)
+            player.player_turn()
+
+        if num_players == 1:
+            print("It is the computer's turn")
+
         break
 
 
