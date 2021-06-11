@@ -19,7 +19,7 @@ def game_menu():
     print("Welcome to Jacob's Pig game!")
     while True:
         print(
-            "To play a new game, enter the number of people playing (1-4) or 'q' to quit: ", end = '')
+            "To play a new game, enter the number of people playing (1-4) or 'q' to quit: ", end='')
         try:
             player_selection = input()
             if player_selection in ('q', 'Q'):
@@ -28,11 +28,15 @@ def game_menu():
 
             if 1 <= number_players <= 4:
                 # game starts, main game conditions met
+                print("New game started with {} player(s)".format(number_players))
+                time.sleep(1)
                 play_round(number_players)
             else:
                 print("You cannot play with {} players".format(number_players))
+                time.sleep(1)
         except ValueError:
             print("Invalid input. Try again.")
+            time.sleep(1)
 
 
 def play_round(num_players):
@@ -49,13 +53,10 @@ def play_round(num_players):
         for player in p_list:
             print("It is player {}'s turn".format(p_list.index(player) + 1))
             time.sleep(1)
-            print("Score: {}".format(player.total_score))
-            time.sleep(1)
             player.player_turn()
-
         if num_players == 1:
             print("It is the computer's turn")
-
+            time.sleep(1)
         break
 
 
