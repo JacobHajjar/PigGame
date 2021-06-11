@@ -43,7 +43,7 @@ def play_round(num_players):
     '''function which plays 1 round of pig'''
     p_list = [Player(1)]  # always start with 1 human player
     if num_players == 1:
-        p_list.append(ComputerPlayer(2))
+        p_list.append(ComputerPlayer(-1))
     else:
         for i in range(2, num_players+1):
             p_list.append(Player(i))
@@ -51,19 +51,18 @@ def play_round(num_players):
     game_ongoing = True
     while game_ongoing:
         for player in p_list:
-            player_number = p_list.index(player) + 1
-            print("It is player {}'s turn".format(player_number))
+            print("It is {}'s turn".format(player.player_name))
             time.sleep(1)
             player.player_turn()
             if player.won_game:
                 game_ongoing = False
-                print("Congratulations player {}, you have won!".format(player_number))
-                break
-        if num_players == 1:
-            print("It is the computer's turn")
-            time.sleep(1)
-            if player.won_game:
-                print("Too bad! You lost!")
+                if player.player_name == "Computer":
+                    print("Too bad! You lost to the computer!\n")
+                else:
+                    print("Congratulations {}, you have won!\n".format(
+                        player.player_name))
+
+                time.sleep(1)
                 break
 
 

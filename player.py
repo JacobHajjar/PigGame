@@ -2,7 +2,7 @@
 
 import time
 from die import roll_die
-_WIN_SCORE = 10 #global win score for testing
+_WIN_SCORE = 100  # global win score for testing
 
 
 class Player:
@@ -13,7 +13,9 @@ class Player:
     won_game = False
 
     def __init__(self, player_num):
-        self.player_num = player_num
+        self.player_name = "Player " + str(player_num)
+        if player_num == -1:
+            self.player_name = "Computer"
 
     def player_roll(self):
         '''function which displays the player's roll'''
@@ -69,3 +71,51 @@ class Player:
 
 class ComputerPlayer(Player):
     '''class for computer players'''
+
+    def player_roll(self):
+        '''overriden function which displays the computer player's roll'''
+        curr_roll = roll_die()
+        self.curr_roll = curr_roll
+        print("Computer rolled: {}".format(curr_roll))
+        time.sleep(1)
+
+    def player_turn(self):
+        '''overriden function for the computer player's turn'''
+        print("Score: {}".format(self.total_score))
+        time.sleep(1)
+        self.turn_score = 0
+        max_rolls = 5
+        for _ in range(max_rolls):
+            self.player_roll()  # computer always starts with a roll
+            self.turn_score += self.curr_roll
+            if self.curr_roll == 1:
+                self.turn_score = 0
+                print("Score: {}".format(self.total_score))
+                time.sleep(1)
+                break
+
+            print("Score: {}".format(self.total_score + self.turn_score))
+            time.sleep(1)
+            if self.total_score + self.turn_score >= _WIN_SCORE:
+                self.won_game = True
+                break
+
+
+        if _WIN_SCORE - self.total_score + self.turn_score < 10:
+            while True:
+                if self.total_score + self.turn_score >= _WIN_SCORE:
+                    self.won_game = True
+                    break
+                self.player_roll()
+                self.turn_score += self.curr_roll
+                if self.curr_roll == 1:
+                    self.turn_score = 0
+                    print("Score: {}".format(self.total_score))
+                    time.sleep(1)
+                    break
+                print("Score: {}".format(self.total_score + self.turn_score))
+                time.sleep(1)
+
+        self.total_score += self.turn_score
+        print("End of turn")
+        time.sleep(1)
