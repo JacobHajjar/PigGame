@@ -2,6 +2,7 @@
 
 import time
 from die import roll_die
+_WIN_SCORE = 10 #global win score for testing
 
 
 class Player:
@@ -9,6 +10,7 @@ class Player:
     total_score = 0
     turn_score = 0
     curr_roll = 0
+    won_game = False
 
     def __init__(self, player_num):
         self.player_num = player_num
@@ -33,10 +35,10 @@ class Player:
         '''function which displays the player's turn'''
         print("Score: {}".format(self.total_score))
         time.sleep(1)
-        while True:
+        while True:  # roll or hold decision loop
             print("Press 'r' to roll or 'h' to hold: ", end='')
             game_decision = input()
-            if game_decision in ('r', 'R'):
+            if game_decision in ('r', 'R'):  # player chooses to roll
                 self.player_roll()
                 if self.curr_roll == 1:
                     self.turn_score = 0
@@ -49,10 +51,14 @@ class Player:
                 self.turn_score += self.curr_roll
                 print("Score: {}".format(
                     self.total_score + self.turn_score), end='')
+                time.sleep(1)
                 print("\tEarned this turn: {}".format(self.turn_score))
                 time.sleep(1)
+                if self.total_score + self.turn_score >= _WIN_SCORE:
+                    self.won_game = True
+                    break
 
-            elif game_decision in ('h', 'H'):
+            elif game_decision in ('h', 'H'):  # player chooses to hold
                 self.total_score += self.turn_score
                 self.turn_score = 0
                 break

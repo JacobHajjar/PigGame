@@ -48,16 +48,23 @@ def play_round(num_players):
         for i in range(2, num_players+1):
             p_list.append(Player(i))
 
-    highest_score = 0
-    while highest_score < 100:
+    game_ongoing = True
+    while game_ongoing:
         for player in p_list:
-            print("It is player {}'s turn".format(p_list.index(player) + 1))
+            player_number = p_list.index(player) + 1
+            print("It is player {}'s turn".format(player_number))
             time.sleep(1)
             player.player_turn()
+            if player.won_game:
+                game_ongoing = False
+                print("Congratulations player {}, you have won!".format(player_number))
+                break
         if num_players == 1:
             print("It is the computer's turn")
             time.sleep(1)
-        break
+            if player.won_game:
+                print("Too bad! You lost!")
+                break
 
 
 if __name__ == '__main__':
