@@ -26,5 +26,7 @@ Player 2's turn
 Decides to roll
 Player 2 rolls a 1. Turn Points: 0  Total Points: 7
 
+This pattern continues until one player reaches 100 points.
+
 # Special Features
 My version of the game features a moderate difficulty computer to play against if 1 player mode is selected. The game also has a hot seat feature, where 2-4 players can take turns playing with eachother. Another special features of my Pig game are special phrases added to your roll which tells you if you had an especially lucky roll of the dice.
