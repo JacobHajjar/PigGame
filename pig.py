@@ -39,7 +39,7 @@ def game_menu():
 
 
 def play_round(num_players):
-    '''function which plays 1 roung of pig'''
+    '''function which plays 1 round of pig'''
     p_list = [Player(1)]  # always start with 1 human player
     if num_players == 1:
         p_list.append(ComputerPlayer(2))
@@ -50,7 +50,7 @@ def play_round(num_players):
     highest_score = 0
     while highest_score < 100:
         for i in range(len(p_list)):
-            print(i)
+            print("It is player {}'s turn".format(i+1))
         break
 
 
